@@ -1,0 +1,140 @@
+:root {
+  --bg: #f2f4f8;
+  --arrow: #3a3f4b;
+  --arrow-hover: #1f2430;
+  --arrow-bg: rgba(255, 255, 255, 0.7);
+  --arrow-bg-hover: #ffffff;
+  /* Half the side length of the imaginary control square the arrows sit on.
+     Smaller now so the four arrows form a compact mini plus/cross. */
+  --reach: 40px;
+  --arrow-size: 45px;
+  /* How far the arrow group sits from the stage center, toward the dodecahedron's
+     top-right corner. */
+  --group-x: 180px;
+  --group-y: 180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Prevent the browser from hijacking touch gestures on the controls */
+  touch-action: manipulation;
+}
+
+#stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+#dodecahedron-canvas {
+  /* Absolutely fill the stage instead of being a grid item. As a grid item with
+     width/height:100%, the canvas's intrinsic size (its drawing-buffer width/
+     height set in resize()) would drive the auto-sized grid track, creating a
+     feedback loop that made the shape grow and drift downward on each resize. */
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Arrow group: a compact plus/cross anchored at the dodecahedron's top-right ---- */
+.arrow-group {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  /* Shift the group's center toward the top-right of the cube. */
+  transform: translate(var(--group-x), calc(-1 * var(--group-y)));
+  pointer-events: none;
+}
+
+/* ---- Arrow buttons (mini plus layout, centered in the group) ---- */
+.arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  margin: 0;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  background: var(--arrow-bg);
+  color: var(--arrow);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* Position comes from per-arrow --tx/--ty so the press scale below can be
+     layered on top without moving the button out from under the cursor. */
+  transform: translate(var(--tx, -50%), var(--ty, -50%));
+}
+
+.arrow svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+.arrow:hover {
+  background: var(--arrow-bg-hover);
+  color: var(--arrow-hover);
+}
+
+.arrow:active {
+  /* Keep the arrow's own offset; just add the press-shrink so the button
+     stays under the pointer and the mouse click registers. */
+  transform: translate(var(--tx, -50%), var(--ty, -50%)) scale(0.9);
+}
+
+.arrow:focus-visible {
+  outline: 3px solid #4c8bf5;
+  outline-offset: 2px;
+}
+
+/* Position each arrow on the mini cross; -50% keeps them centered on the group */
+.arrow--up    { --tx: -50%; --ty: calc(-50% - var(--reach)); }
+.arrow--down  { --tx: -50%; --ty: calc(-50% + var(--reach)); }
+.arrow--left  { --tx: calc(-50% - var(--reach)); --ty: -50%; }
+.arrow--right { --tx: calc(-50% + var(--reach)); --ty: -50%; }
+
+/* Subtle AI-generated note pinned to the bottom-right corner */
+.ai-note {
+  position: fixed;
+  right: 10px;
+  bottom: 8px;
+  margin: 0;
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(70, 70, 70, 0.65);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Tighten the layout on small screens */
+@media (max-width: 480px), (max-height: 480px) {
+  :root {
+    --reach: 36px;
+    --arrow-size: 48px;
+    --group-x: 120px;
+    --group-y: 130px;
+  }
+}
+
+

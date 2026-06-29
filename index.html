@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Aron's Website</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="stage">
+    <canvas id="dodecahedron-canvas"></canvas>
+
+    <!-- Arrow controls grouped in a compact plus/cross at the dodecahedron's top-right -->
+    <div class="arrow-group">
+      <button class="arrow arrow--up" data-dir="up" aria-label="Rotate up">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 4 14h16z" /></svg>
+      </button>
+      <button class="arrow arrow--down" data-dir="down" aria-label="Rotate down">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 4 10h16z" /></svg>
+      </button>
+      <button class="arrow arrow--left" data-dir="left" aria-label="Rotate left">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 14 4v16z" /></svg>
+      </button>
+      <button class="arrow arrow--right" data-dir="right" aria-label="Rotate right">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12 10 4v16z" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <p class="ai-note">This site was generated with AI</p>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
