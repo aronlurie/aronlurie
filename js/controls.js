@@ -30,8 +30,8 @@ function easeInOut(t) {
 export class Controls {
   constructor(root) {
     // Start in a view so several faces are visible
-    const turn = quat.fromAxisAngle(0, 1, 0, Math.PI);
-    const tilt = quat.fromAxisAngle(1, 0, 0, Math.PI);
+    const turn = quat.fromAxisAngle(0, 1, 0, Math.PI / 2);
+    const tilt = quat.fromAxisAngle(1, 0, 0, Math.PI / 3);
     this.orientation = quat.normalize(quat.multiply(tilt, turn));
     this.from = null;
     this.to = null;

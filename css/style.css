@@ -48,6 +48,27 @@ html, body {
   height: 100%;
 }
 
+/* ---- Rotate hint: anchored near the arrow group, above-left of the controls ---- */
+.rotate-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  max-width: 180px;
+  /* Sit above the dodecahedron and to the left of the arrow group. */
+  transform: translate(
+    calc(var(--group-x) - 100% - var(--reach) - var(--arrow-size)),
+    calc(-1 * var(--group-y) - 60px)
+  );
+  text-align: right;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.3;
+  color: rgba(70, 70, 70, 0.65);
+  pointer-events: none;
+  user-select: none;
+}
+
 /* ---- Arrow group: a compact plus/cross anchored at the dodecahedron's top-right ---- */
 .arrow-group {
   position: absolute;
